@@ -6,6 +6,7 @@ import { TaskContext } from '../Context/Context';
 const Tasks = () => {
 
   const {tasks, deleteTask, completedTask} = useContext(TaskContext);
+  const date = new Date();
 
   return (
     <>
@@ -15,10 +16,22 @@ const Tasks = () => {
         <ul id='lists-box'>
           {tasks.map((task) =>(
             <li key={task.id} className='fade-in item-box'>
-              <p onClick={()=> completedTask(task.id)} className={task.completed? 'done' : ''}>{task.text}</p>
-              <div onClick={()=>deleteTask(task.id)} className='delete'>
-                <img className='delete-icon' src={assets.delete_icon} alt="" />
+              <p className={task.completed? 'done' : ''}>{task.text}</p>
+              <div className="actions">
+
+                <div className="task-info">
+                  <span className='time'>{`${date.getHours()}:${date.getMinutes()}`}</span>
+                  <span className='priority'>Priority</span>
+                </div>
+                
+                <div className='task-btns'>
+                  <button onClick={()=> completedTask(task.id)} className='done-btn'>Done</button>
+                  <button onClick={()=> deleteTask(task.id)} className='delete'>Delete</button>
+                </div>
               </div>
+              {/* <div onClick={()=>deleteTask(task.id)} className='delete'>
+                <img className='delete-icon' src={assets.delete_icon} alt="" />
+              </div> */}
             </li>
           ))}
         </ul>
